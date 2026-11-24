@@ -1,0 +1,329 @@
+body
+{
+    background-color: #000000;
+    margin: 0;
+}
+
+/*
+  The stage is one column that all the art hangs from.
+  UpperTerminal.png and FrontDesk.png are both 570px wide, so they
+  stack exactly. Everything inside is sized in % of the stage, so the
+  pieces stay lined up at any size.
+*/
+.stage
+{
+    width: 100%;
+    max-width: 1710px;      /* 570px x 3. Raise or lower to taste */
+    margin: 0 auto;
+    container-type: inline-size;   /* lets children use cqw units */
+}
+
+.stage img
+{
+    display: block;         /* removes the small gap images get under them */
+    image-rendering: pixelated;  /* keeps pixel art crisp when scaled */
+}
+
+.border img,
+.desk
+{
+    width: 100%;
+}
+
+/* The front section holds the desk and the booth behind it */
+.front
+{
+    --px: calc(100cqw / 570);   /* one pixel of the 570px art at the current size */
+
+    position: relative;
+}
+
+/*
+  FrontDesk.png has a transparent window in its top-left corner,
+  178px wide (178 / 570 = 31.23%). The booth sits behind the desk
+  in that window, so it is pinned to the top-left corner.
+*/
+.booth
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 31.2281%;
+    z-index: 1;
+}
+
+/* The desk sits on top so the booth shows only through the window */
+.desk
+{
+    position: relative;
+    z-index: 3;
+}
+
+/* The terminal is the positioning parent for the clickable item */
+.border
+{
+    position: relative;
+}
+
+/*
+  The clickable item sits on the brown square in UpperTerminal.png.
+  The square's top-left corner is at x = 146px, y = 65px in the 570 x 103
+  art, and the item art is 56 x 38px, so everything is a percent of the
+  terminal: 146 / 570, 65 / 103, 56 / 570.
+
+  To nudge it, change --item-x and --item-y.
+*/
+.booth-item
+{
+    --item-x: 25.6140%;   /* 146 / 570 */
+    --item-y: 63.1068%;   /* 65 / 103 */
+
+    position: absolute;
+    left: var(--item-x);
+    top: var(--item-y);
+    width: 9.8246%;       /* 56 / 570 */
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.booth-item img
+{
+    width: 100%;
+}
+
+/* Both images are stacked in the button; only one is shown at a time */
+.booth-item .off
+{
+    display: none;
+}
+
+.booth-item[aria-pressed="false"] .on
+{
+    display: none;
+}
+
+.booth-item[aria-pressed="false"] .off
+{
+    display: block;
+}
+
+.booth-item:focus-visible
+{
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.booth-item:disabled
+{
+    cursor: default;
+}
+
+/*
+  Me.png is 150 x 120 and is drawn at its own size (scaled with --px, so
+  it is never stretched). The figure inside the art runs from x = 23 to 140,
+  so left: 7 puts the figure's middle on the middle of the 178px window.
+  The window shows the top 106px, so the bottom of the figure tucks
+  behind the desk.
+*/
+.me
+{
+    position: absolute;
+    top: calc(0 * var(--px));
+    left: calc(7 * var(--px));
+    width: calc(150 * var(--px));
+    z-index: 1;
+}
+
+.me[hidden]
+{
+    display: none;
+}
+
+/*
+  PASSPORT
+  Sizes and position are set by AM.js through --w, --h, --x and --y,
+  all in pixels of the 570px art. The passport sits above the desk (z 3)
+  but below the stamp tray (z 4), and above everything while it is held (z 5).
+*/
+.passport
+{
+    --w: 60;    /* defaults only; AM.js takes over */
+    --h: 80;
+    --x: 59;
+    --y: 93;
+
+    position: absolute;
+    left: calc(var(--x) * var(--px));
+    top: calc(var(--y) * var(--px));
+    width: calc(var(--w) * var(--px));
+    height: calc(var(--h) * var(--px));
+    z-index: 3;
+    cursor: grab;
+    touch-action: none;           /* a finger drag moves the passport, not the page */
+    user-select: none;
+    -webkit-user-select: none;
+    animation: passport-in 0.35s ease-out;
+}
+
+/* Smooth snap when it is let go (never while it is being dragged) */
+.passport:not(.dragging)
+{
+    transition: left 0.18s ease-out, top 0.18s ease-out;
+}
+
+.passport.dragging
+{
+    z-index: 5;
+    cursor: grabbing;
+}
+
+.passport[hidden]
+{
+    display: none;
+}
+
+.passport img
+{
+    
+    -webkit-user-drag: none;
+}
+
+/* Only one version shows at a time: small on the counter, large on the table */
+.passport .passport-large
+{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.passport[data-mode="large"] .passport-small
+{
+    display: none;
+    width: 50%;
+    height: 50%;
+}
+
+.passport[data-mode="large"] .passport-large
+{
+    display: block;
+}
+
+@keyframes passport-in
+{
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/*
+  STAMP CARRIAGE
+  --px is one pixel of the original 570px-wide art, at the current size.
+  Write any measurement from the art as calc(N * var(--px)).
+*/
+.stamp-tray
+{
+    --px: calc(100cqw / 570);
+
+    position: absolute;
+    left: calc(178 * var(--px));   /* starts at the edge of the booth window */
+    top: 0;
+    width: calc(392 * var(--px));  /* runs to the right edge of the stage */
+    height: 100%;
+    overflow: hidden;              /* hides the part of the carriage that is slid in */
+    z-index: 4;                    /* above the desk */
+    pointer-events: none;          /* the tray itself never blocks clicks */
+}
+
+.carriage
+{
+    --extended-x: 122;     /* carriage left edge when slid out, from the tray's left (570 art px) */
+    --slide: 260;         /* how far it sits to the right when slid in */
+    --carriage-y: 40;     /* distance from the top of the desk section */
+
+    position: absolute;
+    left: calc(var(--extended-x) * var(--px));
+    top: calc(var(--carriage-y) * var(--px));
+    width: calc(280 * var(--px));
+    height: calc(71 * var(--px));  /* holder is 47 tall, stamps hang to 71 */
+    transform: translateX(calc(var(--slide) * var(--px)));
+    transition: transform 0.6s ease;
+}
+
+.carriage.open
+{
+    transform: translateX(0);
+}
+
+.carriage img
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.holder
+{
+    width: calc(280 * var(--px));
+}
+
+/* Both stamps are 75 x 65 and fill the two 75px gaps in the holder */
+.carriage .stamp
+{
+    width: calc(75 * var(--px));
+    top: calc(6 * var(--px));   /* lines up with the top of the rail */
+}
+
+.carriage .stamp-approved
+{
+    left: calc(40 * var(--px));
+}
+
+/* StampTop.png is 27 x 34, lifted 10px (art) above the stamp body */
+.carriage .stamptop-approved
+{
+    left: calc(65 * var(--px));
+    width: calc(27 * var(--px));
+    transform: translateY(calc(-10 * var(--px)));
+}
+
+.carriage .stamptop-denied
+{
+    left: calc(185 * var(--px));
+    width: calc(27 * var(--px));
+    transform: translateY(calc(-10 * var(--px)));
+}
+
+.carriage .stamp-denied
+{
+    left: calc(160 * var(--px));
+}
+
+/* The clickable left edge: the 40 x 47 end block with the arrow */
+.carriage-edge
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(40 * var(--px));
+    height: calc(47 * var(--px));
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    pointer-events: auto;   /* the one part of the tray that takes clicks */
+}
+
+.carriage-edge:focus-visible
+{
+    outline: 2px solid #ffffff;
+    outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .carriage
+    {
+        transition: none;
+    }
+}

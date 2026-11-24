@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Me | Logan Scott</title>
+  <link rel="stylesheet" href="aboutme.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>Logan Scott</h1>
+    <p>CIT Student · IT and Backend Developer</p>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="nav-card">
+        <p class="nav-hint">Drag to spin the cube. Right click a side to go there.</p>
+
+        <div class="scene" id="scene">
+          <div class="box" id="box">
+            <div class="face front"  data-href="">About Me</div>
+            <div class="face back"   data-href="../resume/resume.html">Resume</div>
+            <div class="face right"  data-href="../pastprojects/pastprojects.html">Past Projects</div>
+            <div class="face left"   data-href="../skills/skills.html">Skills</div>
+            <div class="face top"    data-href="">Coming Soon</div>
+            <div class="face bottom" data-href="">Coming Soon</div>
+          </div>
+        </div>
+
+        <nav class="text-nav" aria-label="Page links">
+          <a href="../index.html">Home</a>
+          <a href="../resume/resume.html">Resume</a>
+          <a href="../pastprojects/pastprojects.html">Past Projects</a>
+          <a href="../skills/skills.html">Skills</a>
+        </nav>
+      </div>
+
+      <div class="contact">
+        <h2 class="listheader">Contact Information</h2>
+        <dl>
+          <dt>Email</dt><dd>logan@example.com</dd>
+          <dt>Phone</dt><dd>(555) 555-0142</dd>
+          <dt>Location</dt><dd>Alberta, Canada</dd>
+          <dt>GitHub</dt><dd>github.com/yourname</dd>
+        </dl>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <section class="panel">
+        <h2>Who I am</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </section>
+
+      <section class="panel">
+        <h2>What I'm studying</h2>
+        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+        <ul class="chips">
+          <li>Placeholder skill</li>
+          <li>Placeholder skill</li>
+          <li>Placeholder skill</li>
+          <li>Placeholder skill</li>
+          <li>Placeholder skill</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Outside of work</h2>
+        <p>Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor, ut ullamcorper ligula eros vel ante.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="aboutme.js"></script>
+</body>
+</html>

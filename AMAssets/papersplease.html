@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logan Scott | About Me</title>
+  <link rel="stylesheet" href="AM.css">
+</head>
+<body>
+  <div class="stage">
+
+    <div class="border">
+      <img src="UpperTerminal.png" alt="Upper Terminal">
+
+   
+      <button class="booth-item" id="boothItem" type="button"
+              aria-pressed="true" aria-controls="me" aria-label="Toggle highlight">
+        <img class="on"  src="boothhighlight.png"   alt="">
+        <img class="off" src="boothnohighlight.png" alt="">
+      </button>
+    </div>
+
+    <div class="front">
+      <img class="booth" src="Booth.png" alt="Booth">
+    <img class="me" id="me" src="Me.png" alt="Logan Scott" hidden>
+      <img class="desk" src="FrontDesk.png" alt="Desk">
+
+      <!-- Passport: hidden until the terminal button is clicked.
+           The small one shows on the counter, the large one on the big table. -->
+      <div class="passport" id="passport" hidden>
+        <img class="passport-small" src="Passportsmall.png" alt="Passport" draggable="false">
+        <img class="passport-large" src="Passport.png" alt="Passport, open" draggable="false">
+      </div>
+
+
+      <div class="stamp-tray">
+        <div class="carriage" id="carriage">
+          <img class="holder" src="stampholder.png" alt="">
+          <img class="stamp stamp-approved" src="ApprovedStamp.png" alt="Approved stamp">
+          <img class="stamp stamp-denied" src="DenyStamp.png" alt="Denied stamp">
+          <img class="stamp stamptop-approved" src="StampTop.png" alt="Approved stamp top">
+          <img class="stamp stamptop-denied" src="StampTop.png" alt="Denied stamp top">
+          <button class="carriage-edge" id="carriageEdge" type="button"
+                  aria-expanded="false" aria-controls="carriage"
+                  aria-label="Pull out the stamp carriage"></button>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <script src="AM.js"></script>
+</body>
+</html>
